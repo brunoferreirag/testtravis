@@ -1,0 +1,16 @@
+sudo: required
+services:
+  - docker
+
+script:
+  - docker build -t brunoferreirag/testtravis .
+  - docker images brunoferreirag/testtravis
+
+before_deploy:
+  - docker login -u brunoferreirag  -p People1*
+
+deploy:
+  provider: script
+  script: docker push brunoferreirag/testtravis
+  on:
+    branch: master
